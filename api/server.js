@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
+import cors from 'cors';
 dotenv.config();
 const app = express();
 
@@ -22,6 +23,14 @@ app.listen(5000, () => {
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 
+
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) // Use this after the variable declaration
 app.get("/", (req, res) => {
   res.json({
     message: "Welcome to Auth API",
